@@ -1,0 +1,36 @@
+routing, rendering, datafetching, infrastructure
+
+1. 최상위앱(next 진입점, 페이지라우팅 또는 로드시 매번진입)
+pages/_app.js
+
+// Component는 라우팅된 페이지 컴포넌트
+// pageProps는 라우트 페이지로 전달한 프로퍼티
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
+2. next routing
+pages 폴더안에서 라우팅됨(파일시스템) Link태그 사용시 새로고침없이 페이지로드
+2-1. dynamic routing (동적 라우트페이지 생성)
+[id].js, getStaticPaths() => {
+  fallback:false => 사전에 정의된 param만 보여줌(빌드시 정의)
+  fallback:true => 사전에 정의되지 않은 param은 일단 빈페이지를 보여주고 사용자에게 보여줌
+  fallback:blocking => 사전에 정의되지 않은 param은 데이터를 다 로드해와서 보여줌
+}
+
+3. next components
+<a> => <Link>
+<img> => <Image>
+<head> => <Head>
+<script> => <Script>
+
+4. css style.
+- clsx, postcss, tailwind, sass 호환
+
+5. pre-rendering
+static generation => 미리 Html을 만들어서 사용 => with data: getStaticProps()
+serverside => 서버에서 Html을 즉각 만들어서 줌 => with data: getServersideProps()
+페이지에 따라 섞어서 사용
+데이터가 자주 바뀌는 경우 => serverside
+데이터가 고정되어 있는 경우 => static generation
+
